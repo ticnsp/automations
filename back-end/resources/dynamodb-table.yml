@@ -4,32 +4,22 @@ Resources:
     Properties:
       TableName: ${self:custom.studentsTableName}
       AttributeDefinitions:
-        - AttributeName: userId
-          AttributeType: S
-        - AttributeName: noteId
+        - AttributeName: studentId
           AttributeType: S
       KeySchema:
-        - AttributeName: userId
+        - AttributeName: studentId
           KeyType: HASH
-        - AttributeName: noteId
-          KeyType: RANGE
       # Set the capacity to auto-scale
       BillingMode: PAY_PER_REQUEST
   EnrollmentsTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: ${self.custom.enrollmentsTableName}
+      TableName: ${self:custom.enrollmentsTableName}
       AttributeDefinitions:
         - AttributeName: enrollmentId
           AttributeType: S
-        - AttributeName: studentId
-          AttributeType: S
-        - AttributeName: semesterId
-          AttributeType: S
       KeySchema:
         - AttributeName: enrollmentId
-          KeyType: RANGE
-        - AttributeName: studentId
           KeyType: HASH
       BillingMode: PAY_PER_REQUEST
   SemestersTable:
@@ -41,5 +31,5 @@ Resources:
           AttributeType: S
       KeySchema:
         - AttributeName: semesterId
-          KeyType: RANGE
+          KeyType: HASH
       BillingMode: PAY_PER_REQUEST

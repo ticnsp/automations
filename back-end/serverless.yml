@@ -109,6 +109,15 @@ functions:
           cors: true
           authorizer: aws_iam
 
+  getSemester:
+    handler: getSemester.main
+    events:
+      - http:
+          path: semesters/{id}
+          method: get
+          cors: true
+          authorizer: aws_iam
+
 # Create our resources with separate CloudFormation templates
 resources:
   # API Gateway Errors
