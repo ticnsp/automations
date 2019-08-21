@@ -1,0 +1,40 @@
+enrollmentsGet:
+  handler: src/enrollments/get.main
+  events:
+    - http:
+        path: enrollments/{id}
+        method: get
+        cors: true
+        authorizer: aws_iam
+enrollmentsList:
+  handler: src/enrollments/list.main
+  events:
+    - http:
+        path: enrollments
+        method: get
+        cors: true
+        authorizer: aws_iam
+enrollmentsCreate:
+  handler: src/enrollments/create.main
+  events:
+    - http:
+        path: enrollments
+        method: post
+        cors: true
+        authorizer: aws_iam
+enrollmentsUpdate:
+  handler: src/enrollments/update.main
+  events:
+    - http:
+        path: enrollments/{id}
+        method: put
+        cors: true
+        authorizer: aws_iam
+enrollmentsDelete:
+  handler: src/enrollments/delete.main
+  events:
+    - http:
+        path: enrollments/{id}
+        method: delete
+        cors: true
+        authorizer: aws_iam

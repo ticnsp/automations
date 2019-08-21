@@ -31,7 +31,7 @@ export default class Home extends Component {
   }
 
   notes() {
-    return API.get("notes", "/notes");
+    return API.get("semesters", "/semesters");
   }
 
   renderNotesList(notes) {
