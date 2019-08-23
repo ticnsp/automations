@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { API, Storage } from "aws-amplify";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { s3Upload } from "../libs/awsLib";
 import config from "../config";
@@ -59,7 +59,7 @@ export default class Notes extends Component {
     return this.state.content.length > 0;
   }
 
-  formatFilename(str) {
+  FormatFilename(str) {
     return str.replace(/^\w+-/, "");
   }
 
@@ -127,32 +127,32 @@ export default class Notes extends Component {
     return (
       <div className="Notes">
         {this.state.note &&
-          <form onSubmit={this.handleSubmit}>
-            <FormGroup controlId="content">
-              <FormControl
+          <Form onSubmit={this.handleSubmit}>
+            <Form.Group controlId="content">
+              <Form.Control
                 onChange={this.handleChange}
                 value={this.state.content}
                 componentClass="textarea"
               />
-            </FormGroup>
+            </Form.Group>
             {this.state.note.attachment &&
-              <FormGroup>
-                <ControlLabel>Attachment</ControlLabel>
-                <FormControl.Static>
+              <Form.Group>
+                <Form.Label>Attachment</Form.Label>
+                <Form.Control.Static>
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
                     href={this.state.attachmentURL}
                   >
-                    {this.formatFilename(this.state.note.attachment)}
+                    {this.FormatFilename(this.state.note.attachment)}
                   </a>
-                </FormControl.Static>
-              </FormGroup>}
-            <FormGroup controlId="file">
+                </Form.Control.Static>
+              </Form.Group>}
+            <Form.Group controlId="file">
               {!this.state.note.attachment &&
-                <ControlLabel>Attachment</ControlLabel>}
-              <FormControl onChange={this.handleFileChange} type="file" />
-            </FormGroup>
+                <Form.Label>Attachment</Form.Label>}
+              <Form.Control onChange={this.handleFileChange} type="file" />
+            </Form.Group>
             <LoaderButton
               block
               bsStyle="primary"
@@ -172,7 +172,7 @@ export default class Notes extends Component {
               text="Delete"
               loadingText="Deleting…"
             />
-          </form>}
+          </Form>}
       </div>
     );
   }

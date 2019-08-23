@@ -47,8 +47,8 @@ provider:
 
 functions:
   - ${file(serverless/functions/semesters.yml)}
+  - ${file(serverless/functions/enrollments.yml)}
   # - ${file(serverless/functions/students.yml)}
-  # - ${file(serverless/functions/enrollments.yml)}
 
 # Create our resources with separate CloudFormation templates
 resources:

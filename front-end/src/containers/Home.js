@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { API } from "aws-amplify";
 import { Link } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
-import { PageHeader, ListGroup, ListGroupItem } from "react-bootstrap";
+import { ListGroup } from "react-bootstrap";
 import "./Home.css";
 
 export default class Home extends Component {
@@ -31,7 +31,7 @@ export default class Home extends Component {
   }
 
   notes() {
-    return API.get("semesters", "/semesters");
+    return API.get("notes", "/notes");
   }
 
   renderNotesList(notes) {
@@ -42,19 +42,19 @@ export default class Home extends Component {
               key={note.noteId}
               to={`/notes/${note.noteId}`}
             >
-              <ListGroupItem header={note.content.trim().split("\n")[0]}>
+              <ListGroup.Item header={note.content.trim().split("\n")[0]}>
                 {"Created: " + new Date(note.createdAt).toLocaleString()}
-              </ListGroupItem>
+              </ListGroup.Item>
             </LinkContainer>
           : <LinkContainer
               key="new"
               to="/notes/new"
             >
-              <ListGroupItem>
+              <ListGroup.Item>
                 <h4>
                   <b>{"\uFF0B"}</b> Create a new note
                 </h4>
-              </ListGroupItem>
+              </ListGroup.Item>
             </LinkContainer>
     );
   }
@@ -79,7 +79,7 @@ export default class Home extends Component {
   renderNotes() {
     return (
       <div className="notes">
-        <PageHeader>Your Notes</PageHeader>
+        <h1>Your Notes</h1>
         <ListGroup>
           {!this.state.isLoading && this.renderNotesList(this.state.notes)}
         </ListGroup>

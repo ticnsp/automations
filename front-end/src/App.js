@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Auth } from "aws-amplify";
-import { Link, withRouter } from "react-router-dom";
-import { Nav, Navbar, NavItem } from "react-bootstrap";
+import { withRouter } from "react-router-dom";
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import Routes from "./Routes";
 import "./App.css";
@@ -51,23 +51,35 @@ class App extends Component {
     return (
       !this.state.isAuthenticating &&
       <div className="App container">
-        <Navbar fluid collapseOnSelect>
-          <Navbar.Header>
+        <Navbar fluid='true' collapseOnSelect bg='light' variant='light'>
+          <LinkContainer
+            to='/'
+          >
             <Navbar.Brand>
-              <Link to="/">Scratch</Link>
+              TICNSP | Automations
             </Navbar.Brand>
-            <Navbar.Toggle />
-          </Navbar.Header>
+          </LinkContainer>
+          <Navbar.Toggle />
           <Navbar.Collapse>
-            <Nav pullRight>
+            <Nav className='mr-auto'></Nav>
+            <Nav>
               {this.state.isAuthenticated
-                ? <NavItem onClick={this.handleLogout}>Logout</NavItem>
+                ? <Fragment>
+                    <NavDropdown id='inscripciones-dropdown' title='Inscripciones'>
+                      <LinkContainer
+                        to='/semesters'
+                      >
+                        <NavDropdown.Item>Semesters</NavDropdown.Item>
+                      </LinkContainer>
+                    </NavDropdown>
+                    <Nav.Link onClick={this.handleLogout}>Logout</Nav.Link>
+                  </Fragment>
                 : <Fragment>
                     <LinkContainer to="/signup">
-                      <NavItem>Signup</NavItem>
+                      <Nav.Link>Signup</Nav.Link>
                     </LinkContainer>
                     <LinkContainer to="/login">
-                      <NavItem>Login</NavItem>
+                      <Nav.Link>Login</Nav.Link>
                     </LinkContainer>
                   </Fragment>
               }
