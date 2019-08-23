@@ -52,3 +52,5 @@ env.yml
 
 # Jetbrains IDEs
 .idea
+
+front-end/src/config.js
