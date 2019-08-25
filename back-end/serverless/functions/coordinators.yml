@@ -1,0 +1,40 @@
+coordinatorsGet:
+  handler: src/coordinators/get.main
+  events:
+    - http:
+        path: coordinators/{id}
+        method: get
+        cors: true
+        authorizer: aws_iam
+coordinatorsList:
+  handler: src/coordinators/list.main
+  events:
+    - http:
+        path: coordinators
+        method: get
+        cors: true
+        authorizer: aws_iam
+coordinatorsCreate:
+  handler: src/coordinators/create.main
+  events:
+    - http:
+        path: coordinators
+        method: post
+        cors: true
+        authorizer: aws_iam
+coordinatorsUpdate:
+  handler: src/coordinators/update.main
+  events:
+    - http:
+        path: coordinators/{id}
+        method: put
+        cors: true
+        authorizer: aws_iam
+coordinatorsDelete:
+  handler: src/coordinators/delete.main
+  events:
+    - http:
+        path: coordinators/{id}
+        method: delete
+        cors: true
+        authorizer: aws_iam

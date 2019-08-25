@@ -33,3 +33,25 @@ Resources:
         - AttributeName: semesterId
           KeyType: HASH
       BillingMode: PAY_PER_REQUEST
+  TutorsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:custom.tutorsTableName}
+      AttributeDefinitions:
+        - AttributeName: tutorId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: tutorId
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+  CoordinatorsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:custom.coordinatorsTableName}
+      AttributeDefinitions:
+        - AttributeName: coordinatorId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: coordinatorId
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST

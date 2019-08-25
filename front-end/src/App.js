@@ -71,6 +71,11 @@ class App extends Component {
                       >
                         <NavDropdown.Item>Semesters</NavDropdown.Item>
                       </LinkContainer>
+                      <LinkContainer
+                        to='/students'
+                      >
+                        <NavDropdown.Item>Students</NavDropdown.Item>
+                      </LinkContainer>
                     </NavDropdown>
                     <Nav.Link onClick={this.handleLogout}>Logout</Nav.Link>
                   </Fragment>

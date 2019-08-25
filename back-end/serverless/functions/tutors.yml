@@ -1,0 +1,40 @@
+tutorsGet:
+  handler: src/tutors/get.main
+  events:
+    - http:
+        path: tutors/{id}
+        method: get
+        cors: true
+        authorizer: aws_iam
+tutorsList:
+  handler: src/tutors/list.main
+  events:
+    - http:
+        path: tutors
+        method: get
+        cors: true
+        authorizer: aws_iam
+tutorsCreate:
+  handler: src/tutors/create.main
+  events:
+    - http:
+        path: tutors
+        method: post
+        cors: true
+        authorizer: aws_iam
+tutorsUpdate:
+  handler: src/tutors/update.main
+  events:
+    - http:
+        path: tutors/{id}
+        method: put
+        cors: true
+        authorizer: aws_iam
+tutorsDelete:
+  handler: src/tutors/delete.main
+  events:
+    - http:
+        path: tutors/{id}
+        method: delete
+        cors: true
+        authorizer: aws_iam

@@ -3,9 +3,9 @@ import { API } from 'aws-amplify';
 import moment from 'moment';
 import LoaderButton from '../../components/LoaderButton';
 
-import SemestersForm from '../../components/semesters/form';
+import StudentsForm from '../../components/students/form';
 
-export default class SemesterPage extends Component {
+export default class StudentPage extends Component {
   constructor(props) {
     super(props);
 
@@ -14,10 +14,13 @@ export default class SemesterPage extends Component {
     this.state = {
       isLoading: null,
       isDeleting: null,
-      semester: null,
-      semesterName: '',
-      startDate: null,
-      endDate: null,
+      student: null,
+      studentNames: '',
+      lastNames: '',
+      birthDate: null,
+      tutors: null,
+      emergencyContact: null,
+      notes: '',
       createdAt: null,
       updatedAt: null,
     };
@@ -25,15 +28,18 @@ export default class SemesterPage extends Component {
 
   async componentDidMount() {
     try {
-      const semester = await this.getSemester();
+      const student = await this.getStudent();
 
       const {
-        semesterName,
-        startDate,
-        endDate,
+        studentNames,
+        lastNames,
+        birthdate,
+        tutors,
+        emergencyContact,
+        notes,
         createdAt,
         updatedAt,
-      } = semester;
+      } = student;
 
       const formattedCreatedAt = moment(createdAt).format('YYYY/MM/DD HH:mm:SS');
       const formattedUpdatedAt = updatedAt
@@ -41,10 +47,13 @@ export default class SemesterPage extends Component {
         : '-';
 
       this.setState({
-        semester,
-        semesterName,
-        startDate,
-        endDate,
+        student,
+        studentNames: (studentNames || ''),
+        lastNames,
+        birthdate,
+        tutors,
+        emergencyContact,
+        notes,
         createdAt: formattedCreatedAt,
         updatedAt: formattedUpdatedAt,
       });
@@ -53,49 +62,49 @@ export default class SemesterPage extends Component {
     }
   }
 
-  getSemesterId() {
+  getStudentId() {
     const {
-      id: semesterId,
+      id: studentId,
     } = this.props.match.params;
-    return semesterId;
+    return studentId;
   }
 
-  getSemester() {
-    const semesterId = this.getSemesterId();
+  getStudent() {
+    const studentId = this.getStudentId();
     return API
       .get(
-        'semesters',
-        `/semesters/${semesterId}`
+        'students',
+        `/students/${studentId}`
         );
   }
 
-  saveSemester(semester) {
-    const semesterId = this.getSemesterId();
+  saveStudent(student) {
+    const studentId = this.getStudentId();
     return API
       .put(
-        'semesters',
-        `/semesters/${semesterId}`,
+        'students',
+        `/students/${studentId}`,
         {
-          body: semester,
+          body: student,
         },
       );
   }
 
-  deleteSemester() {
-    const semesterId = this.getSemesterId();
+  deleteStudent() {
+    const studentId = this.getStudentId();
     return API
       .del(
-        'semesters',
-        `/semesters/${semesterId}`,
+        'students',
+        `/students/${studentId}`,
       );
   }
 
   validateForm() {
     const validation =
       (
-        this.state.semesterName.length > 0 &&
-        this.state.startDate &&
-        this.state.endDate
+        this.state.studentNames.length > 0 &&
+        this.state.lastNames.length > 0 &&
+        this.state.birthdate
       );
     return validation;
   }
@@ -109,7 +118,7 @@ export default class SemesterPage extends Component {
   handleDateChange = whichDate => {
     return (date) => {
       this.setState({
-        [`${whichDate}Date`]: date,
+        [`${whichDate}date`]: date,
       });
     }
   }
@@ -120,18 +129,24 @@ export default class SemesterPage extends Component {
     this.setState({ isLoading: true });
 
     const {
-      semesterName,
-      startDate,
-      endDate,
+      studentNames,
+      lastNames,
+      birthdate,
+      tutors,
+      emergencyContact,
+      notes,
     } = this.state;
 
     try {
-      await this.saveSemester({
-        semesterName,
-        startDate,
-        endDate,
+      await this.saveStudent({
+        studentNames,
+        lastNames,
+        birthdate,
+        tutors,
+        emergencyContact,
+        notes,
       });
-      this.props.history.push('/semesters');
+      this.props.history.push('/students');
     } catch (e) {
       alert(e);
       this.setState({ isLoading: false });
@@ -142,7 +157,7 @@ export default class SemesterPage extends Component {
     event.preventDefault();
 
     const confirmed = window.confirm(
-      'Are you sure you want to delete this semester?',
+      'Are you sure you want to delete this student?',
     );
 
     if (!confirmed) {
@@ -152,8 +167,8 @@ export default class SemesterPage extends Component {
     this.setState({ isDeleting: true });
 
     try {
-      await this.deleteSemester();
-      this.props.history.push('/semesters');
+      await this.deleteStudent();
+      this.props.history.push('/students');
     } catch(e) {
       alert(e);
       this.setState({ isDeleting: false });
@@ -163,22 +178,24 @@ export default class SemesterPage extends Component {
   render() {
     return (
       <React.Fragment>
-				<h1 className='mb-4 mt-4'>Semester Detail</h1>
-        {this.state.semester && 
+				<h1 className='mb-4 mt-4'>Student Detail</h1>
+        {this.state.student && 
           <React.Fragment>
             <p>
               Created at: {this.state.createdAt}
               <br />
               Updated at: {this.state.updatedAt}
             </p>
-            <SemestersForm
+            <StudentsForm
               handleSubmit={this.handleSubmit}
               handleChange={this.handleChange}
-              semesterName={this.state.semesterName}
-              startDate={this.state.startDate}
-              endDate={this.state.endDate}
-              handleStartDateChange={this.handleDateChange('start')}
-              handleEndDateChange={this.handleDateChange('end')}
+              studentNames={this.state.studentNames}
+              lastNames={this.state.lastNames}
+              birthdate={this.state.birthdate}
+              handleBirthdateChange={this.handleDateChange('birth')}
+              tutors={this.state.tutors}
+              emergencyContact={this.state.emergencyContact}
+              notes={this.state.notes}
               isLoading={this.state.isLoading}
               validateForm={this.validateForm}
               submitText='Update'

@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import { API } from 'aws-amplify';
-import {
-  Form,
-} from 'react-bootstrap';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import LoaderButton from '../../components/LoaderButton';
+
+import SemestersForm from '../../components/semesters/form'
 
 export default class SemesterNewPage extends Component {
   constructor(props) {
     super(props);
+
+    this.validateForm = this.validateForm.bind(this);
 
     this.state = {
       isLoading: false,
@@ -78,45 +76,19 @@ export default class SemesterNewPage extends Component {
   render() {
     return (
       <React.Fragment>
-        <h1 className='mb-4 mt-4'>Create new semester</h1>
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Group controlId='semesterName'>
-            <Form.Label>Semester Name</Form.Label>
-            <Form.Control
-              onChange={this.handleChange}
-              value={this.state.semesterName}
-              type='input'
-            />
-          </Form.Group>
-          <Form.Group controlId='startDate'>
-            <Form.Label>Start Date</Form.Label>
-            <br />
-            <DatePicker
-              selected={this.state.startDate}
-              onChange={this.handleDateChange('start')}
-              className='form-control'
-            />
-          </Form.Group>
-          <Form.Group controlId='endDate'>
-            <Form.Label>End Date</Form.Label>
-            <br />
-            <DatePicker
-              selected={this.state.endDate}
-              onChange={this.handleDateChange('end')}
-              className='form-control'
-            />
-          </Form.Group>
-          <LoaderButton
-            block
-            variant='light'
-            size='lg'
-            disabled={ !this.validateForm() }
-            type='submit'
-            isLoading={ this.state.isLoading }
-            text='Create'
-            loadingText='Creating...'
-          />
-        </Form>
+        <SemestersForm 
+          handleSubmit={this.handleSubmit}
+          handleChange={this.handleChange}
+          semesterName={this.state.semesterName}
+          startDate={this.state.startDate}
+          endDate={this.state.endDate}
+          handleStartDateChange={this.handleDateChange('start')}
+          handleEndDateChange={this.handleDateChange('end')}
+          isLoading={this.state.isLoading}
+          validateForm={this.validateForm}
+          submitText='Create'
+          submitLoadingText='Creating...'
+        />
       </React.Fragment>
     );
   }

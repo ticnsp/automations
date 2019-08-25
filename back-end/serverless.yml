@@ -16,6 +16,8 @@ custom:
   studentsTableName: automations-students-${self:custom.stage}
   semestersTableName: automations-semesters-${self:custom.stage}
   enrollmentsTableName: automations-enrollments-${self:custom.stage}
+  tutorsTableName: automations-tutors-${self:custom.stage}
+  coordinatorsTableName: automations-coordinators-${self:custom.stage}
 
 provider:
   name: aws
@@ -48,7 +50,9 @@ provider:
 functions:
   - ${file(serverless/functions/semesters.yml)}
   - ${file(serverless/functions/enrollments.yml)}
-  # - ${file(serverless/functions/students.yml)}
+  - ${file(serverless/functions/students.yml)}
+  - ${file(serverless/functions/tutors.yml)}
+  - ${file(serverless/functions/coordinators.yml)}
 
 # Create our resources with separate CloudFormation templates
 resources:
