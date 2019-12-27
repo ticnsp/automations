@@ -1,0 +1,45 @@
+Serverless: Stack update finished...
+Service Information
+service: ticnsp-automations-api
+stage: dev
+region: us-east-1
+stack: ticnsp-automations-api-dev
+resources: 52
+api keys:
+  None
+endpoints:
+  POST - https://xn9umfw858.execute-api.us-east-1.amazonaws.com/dev/notes
+  GET - https://xn9umfw858.execute-api.us-east-1.amazonaws.com/dev/notes/{id}
+  GET - https://xn9umfw858.execute-api.us-east-1.amazonaws.com/dev/notes
+  PUT - https://xn9umfw858.execute-api.us-east-1.amazonaws.com/dev/notes/{id}
+  DELETE - https://xn9umfw858.execute-api.us-east-1.amazonaws.com/dev/notes/{id}
+  GET - https://xn9umfw858.execute-api.us-east-1.amazonaws.com/dev/semesters/{id}
+functions:
+  create: ticnsp-automations-api-dev-create
+  get: ticnsp-automations-api-dev-get
+  list: ticnsp-automations-api-dev-list
+  update: ticnsp-automations-api-dev-update
+  delete: ticnsp-automations-api-dev-delete
+  getSemester: ticnsp-automations-api-dev-getSemester
+layers:
+  None
+
+Stack Outputs
+AttachmentsBucketName: ticnsp-automations-api-dev-attachmentsbucket-nl2hzz2mnbpt
+UserPoolClientId: 5rp9oou6j6hp93uhb8b4jiqtgu
+GetSemesterLambdaFunctionQualifiedArn: arn:aws:lambda:us-east-1:282226748204:function:ticnsp-automations-api-dev-getSemester:1
+UserPoolId: us-east-1_mLltkCV2R
+DeleteLambdaFunctionQualifiedArn: arn:aws:lambda:us-east-1:282226748204:function:ticnsp-automations-api-dev-delete:1
+CreateLambdaFunctionQualifiedArn: arn:aws:lambda:us-east-1:282226748204:function:ticnsp-automations-api-dev-create:1
+GetLambdaFunctionQualifiedArn: arn:aws:lambda:us-east-1:282226748204:function:ticnsp-automations-api-dev-get:1
+UpdateLambdaFunctionQualifiedArn: arn:aws:lambda:us-east-1:282226748204:function:ticnsp-automations-api-dev-update:1
+IdentityPoolId: us-east-1:01b32811-2897-45b4-b31b-e0455ef42113
+ListLambdaFunctionQualifiedArn: arn:aws:lambda:us-east-1:282226748204:function:ticnsp-automations-api-dev-list:1
+ServiceEndpoint: https://xn9umfw858.execute-api.us-east-1.amazonaws.com/dev
+ServerlessDeploymentBucketName: ticnsp-automations-api-d-serverlessdeploymentbuck-gh0solji9mv0
+
+Serverless: Removing old service artifacts from S3...
+Serverless: Run the "serverless" command to setup monitoring, troubleshooting and testing.
+
+Run with
+REACT_APP_STAGE=dev npm run start

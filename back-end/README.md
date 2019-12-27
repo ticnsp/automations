@@ -1,64 +1,96 @@
-# Serverless Stack Demo API
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
+</p>
 
-[Serverless Stack](http://serverless-stack.com) is a free comprehensive guide to creating full-stack serverless applications. We create a [note taking app](http://demo.serverless-stack.com) from scratch.
+[travis-image]: https://api.travis-ci.org/nestjs/nest.svg?branch=master
+[travis-url]: https://travis-ci.org/nestjs/nest
+[linux-image]: https://img.shields.io/travis/nestjs/nest/master.svg?label=linux
+[linux-url]: https://travis-ci.org/nestjs/nest
+  
+  <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
+<a href="https://travis-ci.org/nestjs/nest"><img src="https://api.travis-ci.org/nestjs/nest.svg?branch=master" alt="Travis" /></a>
+<a href="https://travis-ci.org/nestjs/nest"><img src="https://img.shields.io/travis/nestjs/nest/master.svg?label=linux" alt="Linux" /></a>
+<a href="https://coveralls.io/github/nestjs/nest?branch=master"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#5" alt="Coverage" /></a>
+<a href="https://gitter.im/nestjs/nestjs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge"><img src="https://badges.gitter.im/nestjs/nestjs.svg" alt="Gitter" /></a>
+<a href="https://opencollective.com/nest#backer"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec"><img src="https://img.shields.io/badge/Donate-PayPal-dc3d53.svg"/></a>
+  <a href="https://twitter.com/nestframework"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-This repo is for the serverless backend API that we build over the course of the tutorial. You can find the repo for the frontend React app [here](https://github.com/AnomalyInnovations/serverless-stack-demo-client). And the repo for the tutorial [here](https://github.com/AnomalyInnovations/serverless-stack-com).
+## Description
 
-#### Steps
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-To support the different chapters and steps of the tutorial; we use branches to represent the project codebase at the various points. Here is an index of the various chapters and branches in order.
+## Installation
 
-- [Set up the Serverless Framework](../../tree/setup-the-serverless-framework)
-- [Add Support for ES6/ES7 JavaScript](../../tree/add-support-for-es6-es7-javascript)
-- [Add a Create Note API](../../tree/add-a-create-note-api)
-- [Add a Get Note API](../../tree/add-a-get-note-api)
-- [Add a List All the Notes API](../../tree/add-a-list-all-the-notes-api)
-- [Add an Update Note API](../../tree/add-an-update-note-api)
-- [Add a Delete Note API](../../tree/add-a-delete-note-api)
-
-#### Usage
-
-To use this repo locally you need to have the [Serverless framework](https://serverless.com) installed.
-
-``` bash
-$ npm install serverless -g
-```
-
-Clone this repo and install the NPM packages.
-
-``` bash
-$ git clone https://github.com/AnomalyInnovations/serverless-stack-demo-api
+```bash
 $ npm install
 ```
 
-Run a single API on local.
+## Running the app
 
-``` bash
-$ serverless invoke local --function list --path event.json
+```bash
+# development
+$ npm run start
+
+# watch mode
+$ npm run start:dev
+
+# production mode
+$ npm run start:prod
+
+# Or use Docker!
+$ docker-compose up
 ```
 
-Where, `event.json` contains the request event info and looks something like this.
+## Setting up the DB
+```bash
+$ docker-compose up
 
-``` json
-{
-  "requestContext": {
-    "authorizer": {
-      "claims": {
-        "sub": "USER-SUB-1234"
-      }
-    }
-  }
-}
+# On another terminal window
+$ docker-compose exec db psql -U postgres
+# You are now on the db container
+postgres=# CREATE DATABASE waittimes_dev;
+CREATE DATABASE # You should see this output!!
+postgres=# \c waittimes_dev
+postgres=# CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION  # You should see this output!!
+postgres=# \q
+
+# Back on your terminal
+docker-compose run --rm web ./node_modules/.bin/knex migrate:up
 ```
 
-Finally, run this to deploy to your AWS account.
+## Test
 
-``` bash
-$ serverless deploy
+```bash
+# unit tests
+$ npm run test
+
+# e2e tests
+$ npm run test:e2e
+
+# test coverage
+$ npm run test:cov
 ```
 
-#### Maintainers
+## Support
 
-Serverless Stack is authored and maintained by Frank Wang ([@fanjiewang](https://twitter.com/fanjiewang)) & Jay V ([@jayair](https://twitter.com/jayair)). [**Subscribe to our newsletter**](http://eepurl.com/cEaBlf) for updates on Serverless Stack. Send us an [email][Email] if you have any questions.
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-[Email]: mailto:contact@anoma.ly
+## Stay in touch
+
+- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
+
+## License
+
+  Nest is [MIT licensed](LICENSE).

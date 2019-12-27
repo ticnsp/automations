@@ -1,40 +1,8 @@
-studentsGet:
-  handler: src/students/get.main
+coordinators:
+  handler: dist/students/handler.main
   events:
     - http:
-        path: students/{id}
-        method: get
-        cors: true
-        authorizer: aws_iam
-studentsList:
-  handler: src/students/list.main
-  events:
-    - http:
-        path: students
-        method: get
-        cors: true
-        authorizer: aws_iam
-studentsCreate:
-  handler: src/students/create.main
-  events:
-    - http:
-        path: students
-        method: post
-        cors: true
-        authorizer: aws_iam
-studentsUpdate:
-  handler: src/students/update.main
-  events:
-    - http:
-        path: students/{id}
-        method: put
-        cors: true
-        authorizer: aws_iam
-studentsDelete:
-  handler: src/students/delete.main
-  events:
-    - http:
-        path: students/{id}
-        method: delete
+        path: /students
+        method: ANY 
         cors: true
         authorizer: aws_iam

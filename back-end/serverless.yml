@@ -1,12 +1,12 @@
 service: ticnsp-automations-api
 
 # Create an optimized package for our functions 
-package:
-  individually: true
+# package:
+#   individually: true
 
-plugins:
-  - serverless-bundle # Package our functions with Webpack
-  - serverless-offline
+# plugins:
+  # - serverless-bundle # Package our functions with Webpack
+  # - serverless-offline
 
 custom:
   # Our stage is based on what is passed in when running serverless
@@ -21,8 +21,8 @@ custom:
 
 provider:
   name: aws
-  runtime: nodejs8.10
-  stage: dev
+  runtime: nodejs10.x
+  stage: development
   region: us-east-1
 
   environment:
@@ -48,10 +48,6 @@ provider:
         - "Fn::GetAtt": [ EnrollmentsTable, Arn ]
 
 functions:
-  - ${file(serverless/functions/semesters.yml)}
-  - ${file(serverless/functions/enrollments.yml)}
-  - ${file(serverless/functions/students.yml)}
-  - ${file(serverless/functions/tutors.yml)}
   - ${file(serverless/functions/coordinators.yml)}
 
 # Create our resources with separate CloudFormation templates
