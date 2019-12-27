@@ -54,3 +54,4 @@ env.yml
 .idea
 
 front-end/src/config.js
+back-end/dist
