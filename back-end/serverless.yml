@@ -49,6 +49,7 @@ provider:
 
 functions:
   - ${file(serverless/functions/coordinators.yml)}
+  - ${file(serverless/functions/students.yml)}
 
 # Create our resources with separate CloudFormation templates
 resources:
