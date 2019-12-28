@@ -1,100 +1,80 @@
-import React, { Component, Fragment } from "react";
-import { Auth } from "aws-amplify";
-import { withRouter } from "react-router-dom";
-import { Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
-import Routes from "./Routes";
-import "./App.css";
+import React, { useState, useEffect } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { Auth } from 'aws-amplify';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+import './App.css';
 
-    this.state = {
-      isAuthenticated: false,
-      isAuthenticating: true
-    };
-  }
+import Routes from './Routes';
 
-  async componentDidMount() {
+function App(props) {
+  const [isAuthenticated, userHasAuthenticated] = useState(false);
+  const [isAuthenticating, setIsAuthenticating] = useState(true);
+
+  useEffect(() => {
+    onLoad();
+  }, []);
+  
+  async function onLoad() {
     try {
       await Auth.currentSession();
-      this.userHasAuthenticated(true);
+      userHasAuthenticated(true);
     }
     catch(e) {
       if (e !== 'No current user') {
         alert(e);
       }
     }
-
-    this.setState({ isAuthenticating: false });
+    setIsAuthenticating(false);
   }
 
-  userHasAuthenticated = authenticated => {
-    this.setState({ isAuthenticated: authenticated });
-  }
-
-  handleLogout = async event => {
+  async function handleLogout() {
     await Auth.signOut();
-
-    this.userHasAuthenticated(false);
-
-    this.props.history.push("/login");
+    userHasAuthenticated(false);
+    props.history.push('/login');
   }
 
-  render() {
-    const childProps = {
-      isAuthenticated: this.state.isAuthenticated,
-      userHasAuthenticated: this.userHasAuthenticated
-    };
-
-    return (
-      !this.state.isAuthenticating &&
-      <div className="App container">
-        <Navbar fluid='true' collapseOnSelect bg='light' variant='light'>
-          <LinkContainer
-            to='/'
-          >
-            <Navbar.Brand>
-              TICNSP | Automations
-            </Navbar.Brand>
-          </LinkContainer>
-          <Navbar.Toggle />
-          <Navbar.Collapse>
-            <Nav className='mr-auto'></Nav>
-            <Nav>
-              {this.state.isAuthenticated
-                ? <Fragment>
-                    <NavDropdown id='inscripciones-dropdown' title='Inscripciones'>
-                      <LinkContainer
-                        to='/semesters'
-                      >
-                        <NavDropdown.Item>Semesters</NavDropdown.Item>
-                      </LinkContainer>
-                      <LinkContainer
-                        to='/students'
-                      >
-                        <NavDropdown.Item>Students</NavDropdown.Item>
-                      </LinkContainer>
-                    </NavDropdown>
-                    <Nav.Link onClick={this.handleLogout}>Logout</Nav.Link>
-                  </Fragment>
-                : <Fragment>
-                    <LinkContainer to="/signup">
-                      <Nav.Link>Signup</Nav.Link>
-                    </LinkContainer>
-                    <LinkContainer to="/login">
-                      <Nav.Link>Login</Nav.Link>
-                    </LinkContainer>
-                  </Fragment>
-              }
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-        <Routes childProps={childProps} />
-      </div>
-    );
-  }
+  return (
+    !isAuthenticating &&
+    <div className="App container">
+      <Navbar bg="light" variant="light" collapseOnSelect expand="lg">
+        <Link to="/">
+          <Navbar.Brand>
+            TICNSP.org
+          </Navbar.Brand>
+        </Link>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link href="#features">Features</Nav.Link>
+            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
+              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+          <Nav>
+            {isAuthenticated
+              ? <Nav.Link onClick={handleLogout}>Log out</Nav.Link>
+              : <>
+                  <LinkContainer to="/signup">
+                    <Nav.Link>Sing Up</Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to="/login">
+                    <Nav.Link>Log In</Nav.Link>
+                  </LinkContainer>
+                </>
+            }
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      <Routes appProps={{ isAuthenticated, userHasAuthenticated }}/>
+    </div>
+  );
 }
 
 export default withRouter(App);
