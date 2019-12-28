@@ -73,18 +73,18 @@ export class StudentModel {
       Key: {
         studentId: id,
       },
-      UpdateExpression, 
+      UpdateExpression,
       ExpressionAttributeValues: {
-        ":studentNames": data.studentNames || null,
-        ":lastNames": data.lastNames || null,
-        ":birthdate": data.birthdate || null,
-        ":settings": data.settings || null,
-        ":notes": data.notes || null,
-        ":updatedAt": moment().format(),
+        ':studentNames': data.studentNames || null,
+        ':lastNames': data.lastNames || null,
+        ':birthdate': data.birthdate || null,
+        ':settings': data.settings || null,
+        ':notes': data.notes || null,
+        ':updatedAt': moment().format(),
       },
-      ReturnValues: "ALL_NEW"
+      ReturnValues: 'ALL_NEW',
     };
-    await dynamoDbLib.call("update", params);
+    await dynamoDbLib.call('update', params);
     const updatedRecord = await this.get(id);
     return updatedRecord;
   }
@@ -96,7 +96,7 @@ export class StudentModel {
         studentId: id,
       },
     };
-    await dynamoDbLib.call("delete", params);
+    await dynamoDbLib.call('delete', params);
     return id;
   }
 }
