@@ -47,19 +47,35 @@ function App(props) {
         <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
-            <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-            </NavDropdown>
+            {isAuthenticated &&
+              <NavDropdown title="Curso TIC" id="collasible-nav-dropdown">
+                <LinkContainer to="/dashboard">
+                  <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                </LinkContainer>
+                <NavDropdown.Divider />
+                <LinkContainer to="/coordinators">
+                  <NavDropdown.Item>Coordinadores</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/students">
+                  <NavDropdown.Item>Catecúmenos</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/lectures">
+                  <NavDropdown.Item>Catequesis</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/workshops">
+                  <NavDropdown.Item>Talleres</NavDropdown.Item>
+                </LinkContainer>
+              </NavDropdown>
+            }
           </Nav>
           <Nav>
             {isAuthenticated
-              ? <Nav.Link onClick={handleLogout}>Log out</Nav.Link>
+              ? <>
+                  <LinkContainer to="/profile">
+                    <Nav.Link>Profile</Nav.Link>
+                  </LinkContainer>
+                  <Nav.Link onClick={handleLogout}>Log out</Nav.Link>
+                </>
               : <>
                   <LinkContainer to="/signup">
                     <Nav.Link>Sing Up</Nav.Link>
