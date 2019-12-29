@@ -9,6 +9,7 @@ const app: Express = express();
 
 async function bootstrap() {
   const nestApp = await NestFactory.create<NestExpressApplication>(StudentsModule, new ExpressAdapter(app));
+  nestApp.enableCors();
   await nestApp.init();
 }
 

@@ -1,4 +1,4 @@
-coordinators:
+students:
   handler: dist/students/handler.main
   events:
     - http:
