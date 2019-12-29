@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 import { API } from 'aws-amplify';
 import { useFormFields } from '../../libs/hooksLib';
+import { parseDateField, handleDateFieldChange } from '../../libs/dateLib';
 import LoaderButton from '../../components/LoaderButton';
+import './New.css';
 
 export default function NewCoordinator(props) {
   const [isLoading, setIsLoading] = useState(false);
@@ -71,10 +75,10 @@ export default function NewCoordinator(props) {
         </Form.Group>
         <Form.Group controlId="birthdate">
           <Form.Label>Birthdate</Form.Label>
-          <Form.Control
-            type="text"
-            value={fields.birthdate}
-            onChange={handleFieldChange}
+          <DatePicker
+            showYearDropdown
+            selected={parseDateField(fields.birthdate)}
+            onChange={handleDateFieldChange('birthdate', handleFieldChange)}
           />
         </Form.Group>
         <LoaderButton
