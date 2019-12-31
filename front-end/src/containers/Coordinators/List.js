@@ -12,14 +12,12 @@ export default function Coordinators(props) {
       if (!props.isAuthenticated) {
         return null;
       }
-
       try {
         const coordinators = await loadCoordinators();
         setCoordinators(coordinators);
       } catch (error) {
         alert(error);
       }
-
       setIsLoading(false);
     }
     onLoad();
