@@ -2,7 +2,7 @@ students:
   handler: dist/students/handler.main
   events:
     - http:
-        path: /students
+        path: /students/{ANY+}
         method: ANY 
         cors: true
         authorizer: aws_iam
