@@ -65,6 +65,9 @@ function App(props) {
                 <LinkContainer to="/workshops">
                   <NavDropdown.Item>Talleres</NavDropdown.Item>
                 </LinkContainer>
+                <LinkContainer to="/semesters">
+                  <NavDropdown.Item>Semestres</NavDropdown.Item>
+                </LinkContainer>
               </NavDropdown>
             }
           </Nav>

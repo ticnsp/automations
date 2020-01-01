@@ -28,6 +28,11 @@ Amplify.configure({
         endpoint: `${config.apiGateway.URL}/coordinators`,
         region: config.apiGateway.REGION,
       },
+      {
+        name: 'semesters',
+        endpoint: `${config.apiGateway.URL}/semesters`,
+        region: config.apiGateway.REGION,
+      },
     ],
   },
 });

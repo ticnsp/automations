@@ -7,8 +7,8 @@ import config from '../../config';
 
 const { dateTimeFormat } = config.app;
 
-export default function Coordinators(props) {
-  const [coordinators, setCoordinators] = useState([]);
+export default function Semesters(props) {
+  const [semesters, setSemesters] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -17,8 +17,8 @@ export default function Coordinators(props) {
         return null;
       }
       try {
-        const coordinators = await loadCoordinators();
-        setCoordinators(coordinators);
+        const semesters = await loadSemesters();
+        setSemesters(semesters);
       } catch (error) {
         alert(error);
       }
@@ -27,26 +27,26 @@ export default function Coordinators(props) {
     onLoad();
   }, [props.isAuthenticated]);
 
-  async function loadCoordinators() {
-    return API.get('coordinators', '');
+  async function loadSemesters() {
+    return API.get('semesters', '');
   }
 
-  function renderCoordinatorList(coordinators) {
-    return [{}].concat(coordinators).map((coordinator, idx) =>
+  function renderSemesterList(semesters) {
+    return [{}].concat(semesters).map((semester, idx) =>
       idx !== 0 ? (
-        <LinkContainer key={coordinator.coordinatorId} to={`/coordinators/${coordinator.coordinatorId}`}>
+        <LinkContainer key={semester.semesterId} to={`/semesters/${semester.semesterId}`}>
           <ListGroup.Item>
             <div className="d-flex justify-content-between">
-              <h5>{coordinator.coordinatorNames}</h5>
+              <h5>{semester.semesterName}</h5>
             </div>
-            <small>{`Created: ${moment(coordinator.createdAt).format(dateTimeFormat)}`}</small>
+            <small>{`Created: ${moment(semester.createdAt).format(dateTimeFormat)}`}</small>
           </ListGroup.Item>
         </LinkContainer>
       ) : (
-        <LinkContainer key="new" to="/coordinators/new">
+        <LinkContainer key="new" to="/semesters/new">
           <ListGroup.Item>
             <h4>
-                <b>{"\uFF0B"}</b> Create new coordinator
+                <b>{"\uFF0B"}</b> Create new semester
             </h4>
           </ListGroup.Item>
         </LinkContainer>
@@ -56,9 +56,9 @@ export default function Coordinators(props) {
  
   return (
     <div className="pt-2">
-      <h1 className="py-2">Coordinators</h1>
+      <h1 className="py-2">Semesters</h1>
       <ListGroup>
-        {!isLoading && renderCoordinatorList(coordinators)}
+        {!isLoading && renderSemesterList(semesters)}
       </ListGroup>
     </div>
   );

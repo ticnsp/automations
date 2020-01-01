@@ -7,6 +7,9 @@ import { useFormFields } from '../../libs/hooksLib';
 import { parseDateField, handleDateFieldChange } from '../../libs/dateLib';
 import LoaderButton from '../../components/LoaderButton';
 import './Form.css';
+import config from '../../config';
+
+const { datepickerDateFormat } = config.app;
 
 export default function CoordinatorForm(props) {
   const [isLoading, setIsLoading] = useState(false);
@@ -50,8 +53,8 @@ export default function CoordinatorForm(props) {
       props.redirectFunction(coordinatorResponse);
     } catch (error) {
       alert(error.message);
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }
 
   async function createCoordinator(coordinator) {
@@ -97,6 +100,7 @@ export default function CoordinatorForm(props) {
         <Form.Label>Birthdate</Form.Label>
         <DatePicker
           showYearDropdown
+          dateFormat={datepickerDateFormat}
           selected={parseDateField(fields.birthdate)}
           onChange={handleDateFieldChange('birthdate', handleFieldChange)}
         />

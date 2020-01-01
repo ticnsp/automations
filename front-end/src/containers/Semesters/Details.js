@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { API } from 'aws-amplify';
-import CoordinatorForm from './Form';
-import DeleteCoordinatorModal from './DeleteModal';
+import SemesterForm from './Form';
+import DeleteSemesterModal from './DeleteModal';
 
-export default function CoordinatorDetails(props) {
-  const [coordinator, setCoordinator] = useState({});
+export default function SemesterDetails(props) {
+  const [semester, setSemester] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -15,15 +15,15 @@ export default function CoordinatorDetails(props) {
         return null;
       }
       try {
-        const coordinator = await loadCoordinator();
-        setCoordinator(coordinator);
+        const semester = await loadSemester();
+        setSemester(semester);
       } catch (error) {
         alert(error);
       }
       setIsLoading(false);
     }
-    async function loadCoordinator() {
-      return API.get('coordinators', `/${props.match.params.id}`);
+    async function loadSemester() {
+      return API.get('semesters', `/${props.match.params.id}`);
     }
     onLoad();
   }, [props.isAuthenticated, props.match.params.id]);
@@ -33,55 +33,54 @@ export default function CoordinatorDetails(props) {
     setIsEditing(updatedIsEditing);
   }
 
-  function redirectAfterUpdate(coordinator) {
-    setCoordinator(coordinator);
+  function redirectAfterUpdate(semester) {
+    setSemester(semester);
     setIsEditing(false);
   }
 
   function redirectAfterDelete() {
-    props.history.push('/coordinators');
+    props.history.push('/semesters');
   }
 
   return (
     <div className="pt-2">
-      <h1 className="py-2">{ isEditing ? 'Edit Coordinator' : 'Coordinator Details' }</h1>
+      <h1 className="py-2">{ isEditing ? 'Edit Semester' : 'Semester Details' }</h1>
       {!isLoading && (!isEditing
         ? <Form>
-            <Form.Group controlId="coordinatorNames"> 
-              <Form.Label>Names</Form.Label>
+            <Form.Group controlId="semesterName"> 
+              <Form.Label>Name</Form.Label>
               <Form.Control
                 readOnly
                 plaintext
-                defaultValue={coordinator.coordinatorNames}
+                defaultValue={semester.semesterName}
               />
             </Form.Group>
-            <Form.Group controlId="lastNames">
-              <Form.Label>Last names</Form.Label>
+            <Form.Group controlId="startDate">
+              <Form.Label>Start Date</Form.Label>
               <Form.Control
                 readOnly
                 plaintext
-                defaultValue={coordinator.lastNames}
+                defaultValue={semester.startDate}
               />
             </Form.Group>
-            <Form.Group controlId="gender">
-              <Form.Label>Gender</Form.Label>
+            <Form.Group controlId="endDate">
+              <Form.Label>End Date</Form.Label>
               <Form.Control
                 readOnly
                 plaintext
-                defaultValue={coordinator.gender}
+                defaultValue={semester.endDate}
               />
             </Form.Group>
-            <Form.Group controlId="birthdate">
-              <Form.Label>Birthdate</Form.Label>
-              <Form.Control
-                readOnly
-                plaintext
-                defaultValue={coordinator.birthdate}
+            <Form.Group controlId="semesterCurrent">
+              <Form.Switch
+                disabled
+                label="Current"
+                defaultChecked={semester.semesterCurrent}
               />
             </Form.Group>
           </Form>
-        : <CoordinatorForm
-            coordinator={coordinator}
+        : <SemesterForm
+            semester={semester}
             redirectFunction={redirectAfterUpdate}
           />
         )
@@ -93,8 +92,8 @@ export default function CoordinatorDetails(props) {
           >
             {isEditing ? 'Cancel' : 'Edit'}
           </Button>
-          <DeleteCoordinatorModal
-            coordinator={coordinator}
+          <DeleteSemesterModal
+            semester={semester}
             redirectFunction={redirectAfterDelete}
           />
         </div>

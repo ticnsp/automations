@@ -1,13 +1,13 @@
-students:
-  handler: dist/students/handler.main
+semesters:
+  handler: dist/semesters/handler.main
   events:
     - http:
-        path: /students
+        path: /semesters
         method: ANY 
         cors: true
         authorizer: aws_iam
     - http:
-        path: /students/{ANY+}
-        method: ANY
+        path: /semesters/{ANY+}
+        method: ANY 
         cors: true
         authorizer: aws_iam

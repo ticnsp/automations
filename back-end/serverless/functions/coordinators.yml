@@ -2,7 +2,12 @@ coordinators:
   handler: dist/coordinators/handler.main
   events:
     - http:
-        path: /coordinators/{ANY+}
+        path: /coordinators
         method: ANY 
+        cors: true
+        authorizer: aws_iam
+    - http:
+        path: /coordinators/{ANY+}
+        method: ANY
         cors: true
         authorizer: aws_iam
