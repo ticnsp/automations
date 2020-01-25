@@ -8,5 +8,6 @@ import { SemesterModel } from '../models/semester.model';
   imports: [ConfigModule],
   controllers: [SemestersController],
   providers: [SemestersService, SemesterModel],
+  exports: [SemestersService],
 })
 export class SemestersModule {}

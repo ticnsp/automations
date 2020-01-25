@@ -18,6 +18,7 @@ custom:
   enrollmentsTableName: automations-enrollments-${self:custom.stage}
   tutorsTableName: automations-tutors-${self:custom.stage}
   coordinatorsTableName: automations-coordinators-${self:custom.stage}
+  contactsTableName: automations-contacts-${self:custom.stage}
 
 provider:
   name: aws
@@ -47,11 +48,14 @@ provider:
         - "Fn::GetAtt": [ StudentsTable, Arn ]
         - "Fn::GetAtt": [ SemestersTable, Arn ]
         - "Fn::GetAtt": [ EnrollmentsTable, Arn ]
+        - "Fn::GetAtt": [ ContactsTable, Arn ]
 
 functions:
   - ${file(serverless/functions/coordinators.yml)}
   - ${file(serverless/functions/students.yml)}
   - ${file(serverless/functions/semesters.yml)}
+  - ${file(serverless/functions/contacts.yml)}
+  - ${file(serverless/functions/enrollments.yml)}
 
 # Create our resources with separate CloudFormation templates
 resources:

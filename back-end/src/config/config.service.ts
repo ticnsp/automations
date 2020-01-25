@@ -19,7 +19,7 @@ export class ConfigService {
       try {
         config = JSON.parse(fs.readFileSync(filePath).toString());
       } catch (error) {
-        this.logger.error(`Couldn't load config file, using defaults`, error);
+        this.logger.warn(`Couldn't load config file, using defaults: ${error}`);
       }
       this.envConfig = this.validateInput(config);
       ConfigService.service = this;

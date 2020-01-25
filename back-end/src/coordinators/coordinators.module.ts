@@ -8,5 +8,6 @@ import { CoordinatorModel } from '../models/coordinator.model';
   imports: [ConfigModule],
   controllers: [CoordinatorsController],
   providers: [CoordinatorsService, CoordinatorModel],
+  exports: [CoordinatorsService],
 })
 export class CoordinatorsModule {}

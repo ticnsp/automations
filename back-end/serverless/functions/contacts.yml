@@ -1,0 +1,13 @@
+contacts:
+  handler: dist/contacts/handler.main
+  events:
+    - http:
+        path: /contacts
+        method: ANY 
+        cors: true
+        authorizer: aws_iam
+    - http:
+        path: /contacts/{ANY+}
+        method: ANY 
+        cors: true
+        authorizer: aws_iam

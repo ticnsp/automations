@@ -8,5 +8,6 @@ import { StudentModel } from '../models/student.model';
   imports: [ConfigModule],
   controllers: [StudentsController],
   providers: [StudentsService, StudentModel],
+  exports: [StudentsService],
 })
 export class StudentsModule {}

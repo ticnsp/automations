@@ -1,0 +1,13 @@
+enrollments:
+  handler: dist/enrollments/handler.main
+  events:
+    - http:
+        path: /enrollments
+        method: ANY 
+        cors: true
+        authorizer: aws_iam
+    - http:
+        path: /enrollments/{ANY+}
+        method: ANY 
+        cors: true
+        authorizer: aws_iam

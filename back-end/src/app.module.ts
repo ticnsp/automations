@@ -6,6 +6,9 @@ import { ConfigModule } from './config/config.module';
 import { CoordinatorsModule } from './coordinators/coordinators.module';
 import { StudentsModule } from './students/students.module';
 import { SemestersModule } from './semesters/semesters.module';
+import { ContactsModule } from './contacts/contacts.module';
+import { EnrollmentsModule } from './enrollments/enrollments.module';
+import { CourseModule } from './course/course.module';
 
 @Module({
   imports: [
@@ -13,6 +16,9 @@ import { SemestersModule } from './semesters/semesters.module';
     CoordinatorsModule,
     StudentsModule,
     SemestersModule,
+    ContactsModule,
+    EnrollmentsModule,
+    CourseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
